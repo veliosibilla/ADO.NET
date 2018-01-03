@@ -50,19 +50,17 @@ namespace Northwind2.Pages
             }
 
         private void ModifierProduit()
-        {
+        {   enum Ope = Operations.Modifier;
             AfficherProduits();
             int IDProd = Input.Read<int>("Saisir l'ID du produit à modifier:");
-            Produit P = GetProduit(IDProd);
+            Product P = Contexte1.GetProduct(IDProd);
 
             P.Name = Input.Read<String>("Saisissez un nom de produit:", P.Name);
             P.CategoryID = Input.Read<Guid>("Saisissez un ID de catégorie produit:", P.CategoryID);
-            Nouveau_Produit.SupplierID = Input.Read<int>("Saisissez l'identifiant du fournisseur:");
-
-            Nouveau_Produit.UnitPrice = Input.Read<decimal>("Saisissez le prix unitaire:");
-
-            Nouveau_Produit.UnitsInStock = Input.Read<Int16>("Saisissez le nombre d'unités en stock:");
-
+            P.SupplierID = Input.Read<int>("Saisissez l'identifiant du fournisseur:", P.SupplierID);
+            P.UnitPrice = Input.Read<decimal>("Saisissez le prix unitaire:", P.UnitPrice);
+            P.UnitsInStock = Input.Read<Int16>("Saisissez le nombre d'unités en stock:", P.UnitsInStock);
+ 
             Contexte1.AjouterModifierProduit(P);
 
             //List<Category> Categorie = Contexte1.GetCategories();

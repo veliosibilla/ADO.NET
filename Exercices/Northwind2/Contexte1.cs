@@ -331,8 +331,51 @@ order by P.ProductId";
             // permet de fermer cette connexion automatiquement à la fin du bloc using
             
         }
-        public static AjouterModifierProduit (Product P, Operations O)
+
+        public static Product GetProduct(int IDProd)
         {
+            Product Prod = new Product();
+            var cmd = new SqlCommand();
+            cmd.CommandText = @"select CategoryId, SupplierId, Name, UnitPrice, UnitsInStock from Product where ProductID=@IDProd";
+
+            var param = new SqlParameter
+            {
+                SqlDbType = SqlDbType.Int,
+                ParameterName = "@IDProd",
+                Value = IDProd
+            };
+
+            cmd.Parameters.Add(param);
+
+            using (var cnx = new SqlConnection(Settings.Default.Northconn))
+            {
+                // On affecte la connexion à la commande
+                cmd.Connection = cnx;
+                // On ouvre la connexion
+                cnx.Open();
+
+                using (SqlDataReader sdr = cmd.ExecuteReader())
+                
+                    // On lit les lignes de résultat une par une
+                    sdr.Read();
+                        //...et pour chacune on crée un objet qu'on ajoute à la liste
+                        
+                        Prod.CategoryID = ((Guid)sdr["CategoryID"]);
+                        Prod.Name = ((string)sdr["Name"]);
+                        Prod.UnitPrice = ((decimal)sdr["UnitPrice"]);
+                        Prod.UnitsInStock = ((Int16)sdr["UnitsInStock"]);
+                        Prod.SupplierID = ((int)sdr["SupplierID"]);
+
+            }
+            return Prod;
+        }
+
+        public static AjouterModifierProduit (Product P, Operations O)
+        {   
+            while P != null;
+            {
+
+            }
             if (Operations = 1)
             {
                 var cmd = new SqlCommand();
