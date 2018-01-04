@@ -50,7 +50,7 @@ namespace Northwind2.Pages
             }
 
         private void ModifierProduit()
-        {   enum Ope = Operations.Modifier;
+        {   
             AfficherProduits();
             int IDProd = Input.Read<int>("Saisir l'ID du produit à modifier:");
             Product P = Contexte1.GetProduct(IDProd);
